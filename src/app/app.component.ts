@@ -1,9 +1,10 @@
 import { Component, NgZone, ViewChild } from '@angular/core';
 import { Config, Menu, NavController, Platform, QueryParams } from 'ionic-angular';
+import { StatusBar } from 'ionic-native';
 
 import * as helpers from '../directives/helpers';
 import { PageOne, PageTwo, PageThree } from '../pages/menus/basic/pages';
-import { BasicPage } from '../pages/action-sheets/basic/pages';
+import { BasicPage } from '../pages/navigation/basic/pages';
 
 @Component({
   templateUrl: 'app.template.html'
@@ -26,6 +27,9 @@ export class MyApp {
 
   constructor(public platform: Platform, public config: Config, public zone: NgZone, public queryParams: QueryParams) {
     this.rootPage = BasicPage;
+	platform.ready().then(() => {
+        StatusBar.styleDefault();
+    });
   }
 
   ngAfterContentInit() {
@@ -81,6 +85,8 @@ export class MyApp {
   }
 
   previousSection() {
+  	
+    
     let previousPage = this.currentPageIndex - 1;
     if (previousPage < 0) {
       previousPage = 0;
@@ -91,6 +97,8 @@ export class MyApp {
   }
 
   nextSection() {
+  	
+  	
     let nextPage = this.currentPageIndex + 1;
     const pageList = Object.keys(helpers.getPages());
     if (nextPage >= pageList.length) {
